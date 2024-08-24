@@ -42,7 +42,7 @@ function BookingDetail() {
   // console.log(status);
   function handleDeleteBooking() {
     deleteBookingFunc(bookingId, {
-      onSuccess: () => navigate("/bookings"),
+      onSuccess: () => navigate("/bookings", { replace: true }),
       onError: () => navigate("/bookings"),
     });
   }

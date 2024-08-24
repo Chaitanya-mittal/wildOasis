@@ -9,7 +9,7 @@ import FormRow from "../../ui/FormRow";
 import useCreateCabins from "./useCreateCabins";
 import useEditCabins from "./useEditCabins";
 import Label from "../../ui/Label";
-const Error = styled.span`
+export const Error = styled.span`
   font-size: 1.4rem;
   color: var(--color-red-700);
 `;

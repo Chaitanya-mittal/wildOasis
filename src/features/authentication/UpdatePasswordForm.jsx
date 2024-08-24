@@ -3,9 +3,10 @@ import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
+import Label from "../../ui/Label";
 
-import { useUpdateUser } from "./useUpdateUser";
-
+import useUpdateUser from "./useUpdateUser";
+import { Error } from "../../ui/Error";
 function UpdatePasswordForm() {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;
@@ -13,15 +14,14 @@ function UpdatePasswordForm() {
   const { updateUser, isUpdating } = useUpdateUser();
 
   function onSubmit({ password }) {
-    updateUser({ password }, { onSuccess: reset });
+    updateUser({ password }, { onSuccess: () => reset() });
   }
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormRow
-        label="Password (min 8 characters)"
-        error={errors?.password?.message}
-      >
+      <FormRow>
+        <Label htmlFor="password">Password (min 8 characters)</Label>
+
         <Input
           type="password"
           id="password"
@@ -35,12 +35,12 @@ function UpdatePasswordForm() {
             },
           })}
         />
+        {errors?.password && <Error>{errors.password.message}</Error>}
       </FormRow>
 
-      <FormRow
-        label="Confirm password"
-        error={errors?.passwordConfirm?.message}
-      >
+      <FormRow>
+        <Label htmlFor="passwordConfirm">Confirm Password</Label>
+
         <Input
           type="password"
           autoComplete="new-password"
@@ -52,12 +52,15 @@ function UpdatePasswordForm() {
               getValues().password === value || "Passwords need to match",
           })}
         />
+        {errors?.passwordConfirm && (
+          <Error>{errors.passwordConfirm.message}</Error>
+        )}
       </FormRow>
       <FormRow>
-        <Button onClick={reset} type="reset" variation="secondary">
+        <Button onClick={reset} type="reset" variations="secondary">
           Cancel
         </Button>
-        <Button disabled={isUpdating}>Update password</Button>
+        <Button>Update password</Button>
       </FormRow>
     </Form>
   );

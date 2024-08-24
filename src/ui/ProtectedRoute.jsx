@@ -3,6 +3,7 @@ import { useUser } from "../features/authentication/useUser";
 import Spinner from "./Spinner";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 const FullPage = styled.div`
   height: 100vh;
@@ -17,7 +18,7 @@ function ProtectedRoute({ children }) {
 
   // 1. Load the authenticated user
   const { isLoading, isAuthenticated } = useUser();
-
+  const queryClient = useQueryClient();
   // 2. If there is NO authenticated user, redirect to the /login
   useEffect(
     function () {
@@ -27,6 +28,26 @@ function ProtectedRoute({ children }) {
     },
     [isAuthenticated, isLoading, navigate]
   );
+  useEffect(() => {
+    const handleStorageChange = (event) => {
+      console.log(event);
+      if (event.key === "sb-monsxsuuewqcyclzcxrx-auth-token") {
+        // Invalidate the user query when the session changes
+        localStorage.removeItem(event.key);
+        queryClient.invalidateQueries({
+          queryKey: ["user"],
+        });
+      }
+    };
+
+    // Listen for changes to the session in localStorage
+    window.addEventListener("storage", handleStorageChange);
+
+    // Cleanup listener on component unmount
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [queryClient]);
 
   // 3. While loading, show a spinner
   if (isLoading)
