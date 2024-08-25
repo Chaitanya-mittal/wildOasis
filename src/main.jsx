@@ -8,7 +8,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <>
       <GlobalStyles />
-      <ErrorBoundary FallbackComponent={<ErrorFallback />}>
+      <ErrorBoundary
+        FallbackComponent={ErrorFallback}
+        onReset={() => window.location.replace("/")}
+      >
         <App />
       </ErrorBoundary>
     </>

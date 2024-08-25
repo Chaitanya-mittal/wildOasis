@@ -1,5 +1,7 @@
 import styled from "styled-components";
-
+import Heading from "./Heading";
+import Button from "./Button";
+import { Link } from "react-router-dom";
 const StyledErrorFallback = styled.main`
   height: 100vh;
   background-color: var(--color-grey-50);
@@ -30,12 +32,19 @@ const Box = styled.div`
   }
 `;
 
-function ErrorFallback({ error }) {
+function ErrorFallback({ error, resetErrorBoundary }) {
   return (
     <StyledErrorFallback>
       <Box>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima commodi
-        odit earum.
+        <Heading as="h3">Something Went Wrong 🙁</Heading>
+        <p>{error.message}</p>
+        <Button
+          sizes="medium"
+          variations="primary"
+          onClick={resetErrorBoundary}
+        >
+          Restart
+        </Button>
       </Box>
     </StyledErrorFallback>
   );
