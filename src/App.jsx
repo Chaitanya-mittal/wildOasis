@@ -1,4 +1,3 @@
-import GlobalStyles from "./styles/GlobalStyles";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import AppLayout from "./ui/AppLayout";
 import Dashboard from "./pages/Dashboard";
@@ -30,7 +29,7 @@ function App() {
       <ThemeContext>
         <QueryClientProvider client={queryClient}>
           <ReactQueryDevtools initialIsOpen={false} />
-          <GlobalStyles />
+
           <BrowserRouter>
             <Routes>
               <Route

@@ -29,3 +29,16 @@ const Box = styled.div`
     color: var(--color-grey-500);
   }
 `;
+
+function ErrorFallback({ error }) {
+  return (
+    <StyledErrorFallback>
+      <Box>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima commodi
+        odit earum.
+      </Box>
+    </StyledErrorFallback>
+  );
+}
+
+export default ErrorFallback;

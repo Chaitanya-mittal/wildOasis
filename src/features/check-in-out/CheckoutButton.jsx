@@ -1,6 +1,6 @@
 import Button from "../../ui/Button";
 import useCheckout from "./useCheckout";
-
+import { Link } from "react-router-dom";
 function CheckoutButton({ bookingId }) {
   const { checkout, isCheckingout } = useCheckout();
 
@@ -9,8 +9,10 @@ function CheckoutButton({ bookingId }) {
   }
   return (
     <Button
-      variation="primary"
+      sizes="small"
+      variations="primary"
       disabled={isCheckingout}
+      as={Link}
       onClick={handleCheckout}
     >
       Check out
