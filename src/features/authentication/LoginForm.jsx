@@ -8,8 +8,8 @@ import useLogin from "./useLogin";
 import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("test@test.com");
+  const [password, setPassword] = useState("123123123");
 
   const { loginFunc, isloging } = useLogin();
   async function handleSubmit(e) {
